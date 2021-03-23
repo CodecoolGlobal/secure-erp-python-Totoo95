@@ -11,7 +11,15 @@ import sys, os
 sys.path.append(os.getcwd())
 from model import data_manager, util
 
+def write_to_file(content):
+    content.pop(0)
+    data_manager.write_table_to_file(DATAFILE, content)
+
+def get_id():
+    id = util.generate_id()
+    return id
+
 DATAFILE = "model/hr/hr.csv"
 HEADERS = ["Id", "Name", "Date of birth", "Department", "Clearance"]
 content = data_manager.read_table_from_file(DATAFILE)
-content.append(HEADERS)
+content.insert(0, HEADERS)
