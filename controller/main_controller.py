@@ -1,3 +1,5 @@
+import sys, os
+sys.path.append(os.getcwd())
 from view import terminal as view
 from controller import crm_controller, sales_controller, hr_controller
 

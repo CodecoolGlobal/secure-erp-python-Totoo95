@@ -7,8 +7,11 @@ Data table structure:
     - department (string)
     - clearance level (int): from 0 (lowest) to 7 (highest)
 """
-
+import sys, os
+sys.path.append(os.getcwd())
 from model import data_manager, util
 
 DATAFILE = "model/hr/hr.csv"
 HEADERS = ["Id", "Name", "Date of birth", "Department", "Clearance"]
+content = data_manager.read_table_from_file(DATAFILE)
+content.append(HEADERS)

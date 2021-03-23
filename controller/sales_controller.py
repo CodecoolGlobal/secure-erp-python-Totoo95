@@ -1,3 +1,5 @@
+import sys, os
+sys.path.append(os.getcwd())
 from model.sales import sales
 from view import terminal as view
 
