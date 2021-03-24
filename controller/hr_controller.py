@@ -1,6 +1,6 @@
 import sys, os
 sys.path.append(os.getcwd())
-from datetime import date
+from datetime import date, datetime
 from model.hr import hr
 from view import terminal as view
 
@@ -29,24 +29,24 @@ def add_employee():
 
 
 def update_employee():
-    id = input("Enter customer id: ")
-    for customer in hr.content:
-        if customer[0] == id:
-            for index, data in enumerate(customer):
+    id = input("Enter employee id: ")
+    for employee in hr.content:
+        if employee[0] == id:
+            for index, data in enumerate(employee):
                 if data != id:
                     print("Old data: " + data)
                     new_data = input("For no change press ENTER, else: New data: ")
                     if new_data == "":
                         continue
-                    customer[index] = new_data
+                    employee[index] = new_data
     
     hr.write_to_file(hr.content)
 
 
 def delete_employee():
-    id = input("Enter customer id: ")
-    for index, customer in enumerate(hr.content):
-        if customer[0] == id:
+    id = input("Enter employee id: ")
+    for index, employee in enumerate(hr.content):
+        if employee[0] == id:
             hr.content.pop(index)
     hr.write_to_file(hr.content)
 
@@ -81,13 +81,13 @@ def get_oldest_and_youngest():
             day = int(value.split("-")[2])
             youngest_id = key
     
-    for customer in hr.content:
-        if customer[0] == oldest_id:
-            oldest_id += " " + customer[1] + " " + customer[2]
+    for employee in hr.content:
+        if employee[0] == oldest_id:
+            oldest_id += " " + employee[1] + " " + employee[2]
     
-    for customer in hr.content:
-        if customer[0] == youngest_id:
-            youngest_id += " " + customer[1] + " " + customer[2]
+    for employee in hr.content:
+        if employee[0] == youngest_id:
+            youngest_id += " " + employee[1] + " " + employee[2]
     
     print("Oldest: " + oldest_id)
     print("Youngest: " + youngest_id)
@@ -98,8 +98,8 @@ def get_average_age():
     today = str(date.today()).split("-")
     birthdates = []
     hr.content.pop(0)
-    for customer in hr.content:
-        birthdates.append(customer[2])
+    for employee in hr.content:
+        birthdates.append(employee[2])
     sum_age = 0
     for birth in birthdates:
         birth = birth.split("-")
@@ -118,11 +118,50 @@ def get_average_age():
     avg_age = float(sum_age/len(birthdates))
     print(avg_age)
 
-get_average_age()
 
 
 def next_birthdays():
-    view.print_error_message("Not implemented yet.")
+    birthdates = {}
+    following_birthdays = []
+    month_and_days = {
+        "01": 31, "02": 28, "03": 31, "04": 30, "05": 31, "06": 30, "07": 31, "08": 31, "09": 30, "10": 31, "11": 30, "12": 31
+    }
+    hr.content.pop(0)
+    for employee in hr.content:
+        birthdates.update({employee[0]: employee[2]})
+    days_given = 0
+    days_employee = 0
+    given_date = input("Enter date [YYYY-MM-DD]: ").split("-")
+    for key, value in month_and_days.items():
+        if key != given_date[1]:
+            days_given += value
+
+        elif key == given_date[1]:
+            days_given += int(given_date[2]) 
+
+    for id, day in birthdates.items():
+        day = day.split("-")
+        for key, value in month_and_days.items():
+            if key != day[1]:
+                days_employee += value
+
+            elif key == day[1]:
+                days_employee += int(day[2])
+        
+            if days_given > 351:
+                days_employee += 365
+            days = days_employee - days_given
+            
+            if days in range(15):
+                following_birthdays.append(id)
+    
+    print("Birthdays in next two weeks: ")
+
+    for employee in hr.content:
+        if employee[0] in following_birthdays:
+            print(employee[0], employee[1], employee[2])
+
+
 
 
 def count_employees_with_clearance():

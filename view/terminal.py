@@ -11,7 +11,16 @@ def print_menu(title, list_options):
         title (str): the title of the menu (first row)
         list_options (list): list of the menu options (listed starting from 1, 0th element goes to the end)
     """
-    pass
+    print(f"{title}: ")
+    counter = 1
+    exit = list_options[0]
+    list_options.pop(0)
+    for option in list_options:
+        print(f"[{counter}] {option}")
+        counter += 1
+    counter = 0
+    print(f"[{counter}] {exit}")
+
 
 
 def print_message(message):
@@ -20,7 +29,7 @@ def print_message(message):
     Args:
         message: str - the message
     """
-    pass
+    print(message)
 
 
 def print_general_results(result, label):
@@ -29,7 +38,24 @@ def print_general_results(result, label):
     lists/tuples (like "@label: \n  @item1; @item2"), and dictionaries
     (like "@label \n  @key1: @value1; @key2: @value2")
     """
-    pass
+    if type(result) is int:
+        print(f"{label}: {result}")
+    elif type(result) is float:
+        print(label + ": "  + "%.2f" %result)
+    elif type(result) is list or type(result) is tuple:
+        print(f"{label}: ")
+        print_text = ""
+        for data in result:
+            print_text += str(data) + "; "
+        print(print_text)
+    elif type(result) is dict:
+        print(f"{label}: ")
+        print_text = ""
+        for key, value in result.items():
+            print_text += str(key) + ": " + str(value) + "; "
+        print(print_text)
+
+        
 
 
 # /--------------------------------\
@@ -80,7 +106,10 @@ def get_input(label):
     Args:
         label: str - the label before the user prompt
     """
-    pass
+    
+    data = input(f"{label}: ")
+
+    return data
 
 
 def get_inputs(labels):
@@ -89,24 +118,11 @@ def get_inputs(labels):
     Args:
         labels: list - the list of the labels to be displayed before each prompt
     """
-    new_customer = []
-    id = generate_id()
-    name = input("Enter name: ")
-    e_mail = input("Enter e-mail address: ")
-    subscribed = input("Subscription [Y/N]: ").upper()
-    if subscribed == "Y":
-        subscribed = str(1)
-    elif subscribed == "N":
-        subscribed = str(0)
+    datas = []
+    for label in labels:
+        datas.append(input(f"{label}: "))
     
-    new_customer.append(id)
-    new_customer.append(name)
-    new_customer.append(e_mail)
-    new_customer.append(subscribed)
-    
-    return new_customer
-
-
+    return datas
 
 def print_error_message(message):
     """Prints an error message to the terminal.
@@ -114,4 +130,4 @@ def print_error_message(message):
     Args:
         message: str - the error message
     """
-    pass
+    print(message)
