@@ -5,20 +5,21 @@ from view import terminal as view
 
 
 def list_transactions():
-    view.print_error_message("Not implemented yet.")
+    view.print_table(sales.get_content_from_file())
 
 
 def add_transaction():
-    view.print_error_message("Not implemented yet.")
+    sales.add_transaction()
 
 
 def update_transaction():
-    view.print_error_message("Not implemented yet.")
+    id = view.get_input("Enter transaction id")
+    sales.update_transaction(id)
 
 
 def delete_transaction():
-    view.print_error_message("Not implemented yet.")
-
+    id = view.get_input("Enter transaction id")
+    sales.delete_transaction(id)
 
 def get_biggest_revenue_transaction():
     view.print_error_message("Not implemented yet.")

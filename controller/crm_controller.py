@@ -5,18 +5,18 @@ from view import terminal as view
 
 
 def list_customers():
-    view.print_table(crm.content_with_headers)
+    view.print_table(crm.get_content_from_file())
 
 def add_customer():
     crm.add_customer()
 
 def update_customer():
-    id = view.get_input("Enter customer id: ")
-    crm.update_customer()
+    id = view.get_input("Enter customer id")
+    crm.update_customer(id)
 
 def delete_customer():
-    id = view.get_input("Enter customer id: ")
-    crm.delete_customer()
+    id = view.get_input("Enter customer id")
+    crm.delete_customer(id)
 
 
 def get_subscribed_emails():
