@@ -1,3 +1,6 @@
+import os
+
+
 def print_menu(title, list_options):
     """Prints options in standard menu format like this:
 
@@ -20,7 +23,6 @@ def print_menu(title, list_options):
         counter += 1
     counter = 0
     print(f"[{counter}] {exit}")
-
 
 
 def print_message(message):
@@ -54,8 +56,8 @@ def print_general_results(result, label):
         for key, value in result.items():
             print_text += str(key) + ": " + str(value) + "; "
         print(print_text)
-
-        
+    input("\nPress enter to return to menu!")
+    os.system("cls||clear")
 
 
 # /--------------------------------\
@@ -65,6 +67,8 @@ def print_general_results(result, label):
 # |--------|------------|----------|
 # |   1    | Sidewinder | missile  |
 # \-----------------------------------/
+
+
 def print_table(table):
     """Prints tabular data like above.
 
@@ -78,28 +82,26 @@ def print_table(table):
         for customers in table: 
             if len(str(customers[i])) > len(str(maximum_len)):
                 maximum_len = customers[i]
-        longest_datas.append(len(maximum_len))
-    longest_data = max(longest_datas)
-    first_line = "/"
+        longest_datas.append(maximum_len)
+    first_line = "+"
     for count in range(len(longest_datas)):
-        first_line += "-" *(longest_data + 2)
-    first_line += "-\\"
-
+        first_line += "-"*(len(str(longest_datas[count]))+4)
+    first_line += (number_of_columns-1)*"-" + "+"
     print(first_line)
+
     for index in range(len(table)):
         header_line = ""
-        for index, title in enumerate(table[index]):
-            needed_spaces = longest_data - len(str(title)) + 2
-            header_line += "|" + (needed_spaces//2)*" " + title + " " *(needed_spaces//2)
+        for key, title in enumerate(table[index]):
+            aligned_title = title.center(len(longest_datas[key])+4)
+            header_line += "|" + aligned_title
         
         print(header_line + "|")
-        first_line = first_line.replace("\\", "|").replace("/", "|")
+        first_line = first_line.replace("+", "|")
+        if index == len(table)-1:
+            first_line = first_line.replace(first_line[0], "+")
         print(first_line)
-    
-    
-
-        
-
+    input("\nPress enter to return to menu!")
+    os.system("cls||clear")
 
 
 def get_input(label):
@@ -125,6 +127,7 @@ def get_inputs(labels):
         datas.append(input(f"{label}: "))
     
     return datas
+
 
 def print_error_message(message):
     """Prints an error message to the terminal.

@@ -1,6 +1,4 @@
-import sys, os
-sys.path.append(os.getcwd())
-from datetime import date, datetime
+import os
 from model.hr import hr
 from view import terminal as view
 
@@ -24,22 +22,23 @@ def delete_employee():
 
 
 def get_oldest_and_youngest():
-    view.print_general_results(hr.get_oldest_and_youngest(), "Oldest and youngest: ")
+    view.print_general_results(hr.get_oldest_and_youngest(), "Oldest and youngest")
 
 
 def get_average_age():
     view.print_message("For the calculation please enter today's date [YYYY-MM-DD]: ")
     today = view.get_input("Enter here")
-    view.print_general_results(hr.get_average_age(today), "The average age is: ")
+    view.print_general_results(hr.get_average_age(today), "The average age is")
 
 
 def next_birthdays():
     given_date = view.get_input("Upcoming birthdays from this date [YYYY-MM-DD]")
-    view.print_general_results(hr.next_birthdays(given_date), "Employee(s) birthdays in stwo weeks from given date: ")
+    view.print_general_results(hr.next_birthdays(given_date), "Employee(s) birthdays in stwo weeks from given date")
+
 
 def count_employees_with_clearance():
     given_clearance = view.get_input("Enter minimum clearance level")
-    view.print_general_results(hr.count_employees_with_clearance(given_clearance), f"Employees with clearance level higher than {given_clearance}: ")
+    view.print_general_results(hr.count_employees_with_clearance(given_clearance), f"Employees with clearance level higher than {given_clearance}")
 
 
 def count_employees_per_department():

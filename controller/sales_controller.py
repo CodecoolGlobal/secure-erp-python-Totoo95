@@ -1,5 +1,4 @@
-import sys, os
-sys.path.append(os.getcwd())
+import os
 from model.sales import sales
 from view import terminal as view
 
@@ -21,6 +20,7 @@ def delete_transaction():
     id = view.get_input("Enter transaction id")
     sales.delete_transaction(id)
 
+
 def get_biggest_revenue_transaction():
     view.print_general_results(sales.get_biggest_revenue_transaction(), "The biggest revenue transaction")
 
@@ -32,6 +32,7 @@ def get_biggest_revenue_product():
 def count_transactions_between():
     dates = view.get_inputs(["Give the start date", "Give the closing date"])
     view.print_general_results(sales.count_transactions_between(dates[0], dates[1]), "The number of transactions")
+
 
 def sum_transactions_between():
     dates = view.get_inputs(["Give the start date", "Give the closing date"])

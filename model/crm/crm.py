@@ -6,8 +6,6 @@ Data table structure:
     - email (string)
     - subscribed (int): Is subscribed to the newsletter? 1: yes, 0: no
 """
-import sys, os
-sys.path.append(os.getcwd())
 from model import data_manager, util
 
 def add_customer():

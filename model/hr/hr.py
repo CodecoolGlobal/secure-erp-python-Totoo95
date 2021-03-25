@@ -7,8 +7,6 @@ Data table structure:
     - department (string)
     - clearance level (int): from 0 (lowest) to 7 (highest)
 """
-import sys, os
-sys.path.append(os.getcwd())
 from model import data_manager, util
 
 
@@ -188,12 +186,18 @@ def count_employees_with_clearance(given_clearance):
     for clearance, level in all_clearances.items():
         if clearance >= given_clearance:
             needed_clearances.update({f"level {clearance}": level})
+    clearance_list = []
+    for clearance, level in needed_clearances.items():
+        clearance_list.append(f"{clearance}: {level}")
+    clearance_list = sorted(clearance_list)
 
-    return needed_clearances
+    return clearance_list
+
 
 def count_employees_per_department():
     all_departments = get_employees_by_given_data(3)
     return all_departments
+
 
 def write_to_file(content):
     content.pop(0)
