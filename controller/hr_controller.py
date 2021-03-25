@@ -35,7 +35,7 @@ def get_average_age():
 
 def next_birthdays():
     given_date = view.get_input("Upcoming birthdays from this date [YYYY-MM-DD]")
-    view.print_general_results(hr.next_birthdays(given_date), "Employee birthdays two weeks from given date: ")
+    view.print_general_results(hr.next_birthdays(given_date), "Employee(s) birthdays in stwo weeks from given date: ")
 
 def count_employees_with_clearance():
     given_clearance = view.get_input("Enter minimum clearance level")
@@ -48,24 +48,34 @@ def count_employees_per_department():
 
 def run_operation(option):
     if option == 1:
+        os.system("cls||clear")
         list_employees()
     elif option == 2:
+        os.system("cls||clear")
         add_employee()
     elif option == 3:
+        os.system("cls||clear")
         update_employee()
     elif option == 4:
+        os.system("cls||clear")
         delete_employee()
     elif option == 5:
+        os.system("cls||clear")
         get_oldest_and_youngest()
     elif option == 6:
+        os.system("cls||clear")
         get_average_age()
     elif option == 7:
+        os.system("cls||clear")
         next_birthdays()
     elif option == 8:
+        os.system("cls||clear")
         count_employees_with_clearance()
     elif option == 9:
+        os.system("cls||clear")
         count_employees_per_department()
     elif option == 0:
+        os.system("cls||clear")
         return
     else:
         raise KeyError("There is no such option.")

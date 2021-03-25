@@ -25,16 +25,22 @@ def get_subscribed_emails():
 
 def run_operation(option):
     if option == 1:
+        os.system("cls||clear")
         list_customers()
     elif option == 2:
+        os.system("cls||clear")
         add_customer()
     elif option == 3:
+        os.system("cls||clear")
         update_customer()
     elif option == 4:
+        os.system("cls||clear")
         delete_customer()
     elif option == 5:
+        os.system("cls||clear")
         get_subscribed_emails()
     elif option == 0:
+        os.system("cls||clear")
         return
     else:
         raise KeyError("There is no such option.")

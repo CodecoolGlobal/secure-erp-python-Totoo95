@@ -6,12 +6,16 @@ from controller import crm_controller, sales_controller, hr_controller
 
 def load_module(option):
     if option == 1:
+        os.system("cls||clear")
         crm_controller.menu()
     elif option == 2:
+        os.system("cls||clear")
         sales_controller.menu()
     elif option == 3:
+        os.system("cls||clear")
         hr_controller.menu()
     elif option == 0:
+        os.system("cls||clear")
         return 0
     else:
         raise KeyError()

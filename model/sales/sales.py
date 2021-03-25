@@ -54,6 +54,76 @@ def delete_transaction(id):
     write_to_file(content)
 
 
+def get_biggest_revenue_transaction():
+    content = get_content_from_file()
+    content.pop(0)
+    biggest_transaction = content[0]
+    for element in content:
+        if float(element[3]) > float(biggest_transaction[3]):
+            biggest_transaction = element
+    return biggest_transaction
+    
+
+def get_biggest_revenue_product():
+    content = get_content_from_file()
+    content.pop(0)
+    products = {}
+    biggest_revenue = ("x", 0)
+    for element in content:
+        if element[2] in products.keys():
+            products[element[2]] += float(element[3])
+        else:
+            products.update({element[2]: float(element[3])})
+    for product, revenue in products.items():
+        if revenue > biggest_revenue[1]:
+            biggest_revenue = (product, revenue)
+    return biggest_revenue
+
+
+def get_transactions_between_dates(from_date, to_date):
+    content = get_content_from_file()
+    content.pop(0)
+    transactions_between_dates = []
+    from_date = from_date.split("-")
+    to_date = to_date.split("-")
+    for element in content:
+        transaction_date = element[-1].split("-")
+        if from_date[0] < transaction_date[0] < to_date[0]:
+            transactions_between_dates.append(element)
+        elif from_date[0] == transaction_date[0]:
+            if from_date[1] == transaction_date[1]:
+                if from_date[2] < transaction_date[2]:
+                    transactions_between_dates.append(element)
+                continue
+            elif to_date[1] == transaction_date[1]:
+                if to_date[2] < transaction_date[2]:
+                    continue
+            elif from_date[1] < transaction_date[1]:
+                transactions_between_dates.append(element)
+            continue
+        elif to_date[0] == transaction_date[0]:
+            if to_date[1] == transaction_date[1]:
+                if to_date[2] > transaction_date[2]:
+                    transactions_between_dates.append(element)
+                continue
+            elif to_date[1] > transaction_date[1]:
+                transactions_between_dates.append(element)
+            continue
+    return transactions_between_dates
+
+
+def count_transactions_between(from_date, to_date):
+    number_of_transactions = len(get_transactions_between_dates(from_date, to_date))
+    return number_of_transactions
+
+def sum_transactions_between(from_date, to_date):
+    transactions_between = get_transactions_between_dates(from_date, to_date)
+    sum = 0
+    for element in transactions_between:
+        sum += float(element[3])
+    return sum
+
+
 def get_id():
     id = util.generate_id()
     return id
