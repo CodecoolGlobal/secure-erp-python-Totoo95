@@ -64,7 +64,7 @@ def run_operation(option):
     elif option == 8:
         os.system("cls||clear")
         sum_transactions_between()
-    elif option == 0:
+    elif option == 9:
         os.system("cls||clear")
         return
     else:
@@ -72,24 +72,25 @@ def run_operation(option):
 
 
 def display_menu():
-    options = ["Back to main menu",
-               "List transactions",
+    options = ["List transactions",
                "Add new transaction",
                "Update transaction",
                "Remove transaction",
                "Get the transaction that made the biggest revenue",
                "Get the product that made the biggest revenue altogether",
                "Count number of transactions between",
-               "Sum the price of transactions between"]
-    view.print_menu("Sales", options)
+               "Sum the price of transactions between",
+               "Back to main menu"]
+    option =view.arrow_input("Sales", options)
+
+    return option
 
 
 def menu():
     operation = None
-    while operation != '0':
-        display_menu()
+    while operation != 9:
         try:
-            operation = view.get_input("Select an operation")
+            operation = display_menu()
             run_operation(int(operation))
         except KeyError as err:
             view.print_error_message(err)

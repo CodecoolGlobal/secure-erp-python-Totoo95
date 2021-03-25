@@ -38,7 +38,7 @@ def run_operation(option):
     elif option == 5:
         os.system("cls||clear")
         get_subscribed_emails()
-    elif option == 0:
+    elif option == 6:
         os.system("cls||clear")
         return
     else:
@@ -46,21 +46,22 @@ def run_operation(option):
 
 
 def display_menu():
-    options = ["Back to main menu",
-               "List customers",
+    options = ["List customers",
                "Add new customer",
                "Update customer",
                "Remove customer",
-               "Subscribed customer emails"]
-    view.print_menu("Customer Relationship Management", options)
+               "Subscribed customer emails",
+               "Back to main menu",]
+    option =view.arrow_input("Customer Relationship Management", options)
+
+    return option
 
 
 def menu():
     operation = None
-    while operation != '0':
-        display_menu()
+    while operation != 6:
         try:
-            operation = view.get_input("Select an operation")
+            operation = display_menu()
             run_operation(int(operation))
         except KeyError as err:
             view.print_error_message(err)

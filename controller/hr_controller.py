@@ -73,7 +73,7 @@ def run_operation(option):
     elif option == 9:
         os.system("cls||clear")
         count_employees_per_department()
-    elif option == 0:
+    elif option == 10:
         os.system("cls||clear")
         return
     else:
@@ -81,8 +81,7 @@ def run_operation(option):
 
 
 def display_menu():
-    options = ["Back to main menu",
-               "List employees",
+    options = ["List employees",
                "Add new employee",
                "Update employee",
                "Remove employee",
@@ -90,16 +89,18 @@ def display_menu():
                "Employees average age",
                "Employees with birthdays in the next two weeks",
                "Employees with clearance level",
-               "Employee numbers by department"]
-    view.print_menu("Human resources", options)
+               "Employee numbers by department",
+               "Back to main menu",]
+    option =view.arrow_input("Human Resources", options)
+
+    return option
 
 
 def menu():
     operation = None
-    while operation != '0':
-        display_menu()
+    while operation != 10:
         try:
-            operation = view.get_input("Select an operation")
+            operation = display_menu()
             run_operation(int(operation))
         except KeyError as err:
             view.print_error_message(err)

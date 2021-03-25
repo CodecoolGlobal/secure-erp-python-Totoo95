@@ -13,7 +13,7 @@ def load_module(option):
     elif option == 3:
         os.system("cls||clear")
         hr_controller.menu()
-    elif option == 0:
+    elif option == 4:
         os.system("cls||clear")
         return 0
     else:
@@ -21,19 +21,21 @@ def load_module(option):
 
 
 def display_menu():
-    options = ["Exit program",
-               "Customer Relationship Management (CRM)",
+    options = ["Customer Relationship Management (CRM)",
                "Sales",
-               "Human Resources"]
-    view.print_menu("Main menu", options)
+               "Human Resources",
+               "Exit program"]
+    option =view.arrow_input("Main menu", options)
+
+    return option
+    
 
 
 def menu():
     option = None
-    while option != '0':
-        display_menu()
+    while option != 4:
         try:
-            option = view.get_input("Select module")
+            option = display_menu()
             load_module(int(option))
         except KeyError:
             view.print_error_message("There is no such option!")

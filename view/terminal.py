@@ -1,29 +1,6 @@
 import os
-
-
-def print_menu(title, list_options):
-    """Prints options in standard menu format like this:
-
-    Main menu:
-    (1) Store manager
-    (2) Human resources manager
-    (3) Inventory manager
-    (0) Exit program
-
-    Args:
-        title (str): the title of the menu (first row)
-        list_options (list): list of the menu options (listed starting from 1, 0th element goes to the end)
-    """
-    print(f"{title}: ")
-    counter = 1
-    exit = list_options[0]
-    list_options.pop(0)
-    for option in list_options:
-        print(f"[{counter}] {option}")
-        counter += 1
-    counter = 0
-    print(f"[{counter}] {exit}")
-
+import curses
+    
 
 def print_message(message):
     """Prints a single message to the terminal.
@@ -102,7 +79,41 @@ def print_table(table):
         print(first_line)
     input("\nPress enter to return to menu!")
     os.system("cls||clear")
+    
 
+def arrow_input(title, classes):
+
+    def character(stdscr):
+        attributes = {}
+        curses.init_pair(1, curses.COLOR_WHITE, curses.COLOR_BLACK)
+        attributes['normal'] = curses.color_pair(1)
+
+        curses.init_pair(2, curses.COLOR_BLACK, curses.COLOR_WHITE)
+        attributes['highlighted'] = curses.color_pair(2)
+
+        c = 0  # last character read
+        option = 0  # the current option that is marked
+        while c != 10:  # Enter in ascii
+            stdscr.erase()
+            stdscr.addstr(f"{title}\n", curses.A_UNDERLINE)
+            for i in range(len(classes)):
+                if i == option:
+                    attr = attributes['highlighted']
+                else:
+                    attr = attributes['normal']
+                stdscr.addstr(classes[i] + '\n', attr)
+            c = stdscr.getch()
+            if c == curses.KEY_UP and option > 0:
+                option -= 1
+            elif c == curses.KEY_DOWN and option < len(classes) - 1:
+                option += 1
+        stdscr.addstr("You chose {0}".format(classes[option]))
+
+        return option+1
+
+
+    option = curses.wrapper(character)
+    return option
 
 def get_input(label):
     """Gets single string input from the user.
