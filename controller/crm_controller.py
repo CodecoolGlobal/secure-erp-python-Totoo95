@@ -1,4 +1,4 @@
-#import sys, os
+import sys, os
 #sys.path.append(os.getcwd())
 from model.crm import crm
 from view import terminal as view

@@ -75,25 +75,27 @@ def print_table(table):
     longest_datas = []
     for i in range(number_of_columns):
         maximum_len = 0
-        for customers in table:
+        for customers in table: 
             if len(str(customers[i])) > len(str(maximum_len)):
                 maximum_len = customers[i]
-        longest_datas.append(maximum_len)
+        longest_datas.append(len(maximum_len))
+    longest_data = max(longest_datas)
     first_line = "/"
     for count in range(len(longest_datas)):
-        first_line += "-" + "-" *len(str(longest_datas[count])) + "-"
+        first_line += "-" *(longest_data + 2)
     first_line += "-\\"
 
     print(first_line)
     for index in range(len(table)):
         header_line = ""
         for index, title in enumerate(table[index]):
-            needed_spaces = len(str(longest_datas[index])) - len(str(title)) + 2
+            needed_spaces = longest_data - len(str(title)) + 2
             header_line += "|" + (needed_spaces//2)*" " + title + " " *(needed_spaces//2)
         
         print(header_line + "|")
         first_line = first_line.replace("\\", "|").replace("/", "|")
         print(first_line)
+    
     
 
         
