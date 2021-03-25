@@ -81,7 +81,7 @@ def display_menu():
                "Count number of transactions between",
                "Sum the price of transactions between",
                "Back to main menu"]
-    option =view.arrow_input("Sales", options)
+    option = view.arrow_input("Sales", options)
 
     return option
 

@@ -1,6 +1,20 @@
 import os
 import curses
     
+def print_ascii():
+    ascii_art = """
+    
+   _____                      _____        _          
+  / ____|         /\         |  __ \      | |         
+ | |             /  \        | |__) |     | |         
+ | |            / /\ \       |  _  /      | |         
+ | |____   _   / ____ \   _  | | \ \   _  | |____   _ 
+  \_____| (_) /_/    \_\ (_) |_|  \_\ (_) |______| (_)
+                                                      
+                                                      
+
+    """
+    return ascii_art
 
 def print_message(message):
     """Prints a single message to the terminal.
@@ -82,20 +96,19 @@ def print_table(table):
     
 
 def arrow_input(title, classes):
-
     def character(stdscr):
         attributes = {}
-        curses.init_pair(1, curses.COLOR_WHITE, curses.COLOR_BLACK)
+        curses.init_pair(1, curses.COLOR_YELLOW, curses.COLOR_BLACK)
         attributes['normal'] = curses.color_pair(1)
 
-        curses.init_pair(2, curses.COLOR_BLACK, curses.COLOR_WHITE)
+        curses.init_pair(2, curses.COLOR_BLUE, curses.COLOR_BLACK)
         attributes['highlighted'] = curses.color_pair(2)
 
         c = 0  # last character read
         option = 0  # the current option that is marked
         while c != 10:  # Enter in ascii
             stdscr.erase()
-            stdscr.addstr(f"{title}\n", curses.A_UNDERLINE)
+            stdscr.addstr(f"{title}\n", curses.A_BOLD)
             for i in range(len(classes)):
                 if i == option:
                     attr = attributes['highlighted']
@@ -103,9 +116,9 @@ def arrow_input(title, classes):
                     attr = attributes['normal']
                 stdscr.addstr(classes[i] + '\n', attr)
             c = stdscr.getch()
-            if c == curses.KEY_UP and option > 0:
+            if c == 450 and option > 0:
                 option -= 1
-            elif c == curses.KEY_DOWN and option < len(classes) - 1:
+            elif c == 456 and option < len(classes) - 1:
                 option += 1
         stdscr.addstr("You chose {0}".format(classes[option]))
 

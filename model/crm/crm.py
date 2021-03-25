@@ -58,8 +58,7 @@ def get_subscribed_emails():
         if customer[-1] == "1":
             subscribed_emails.append(customer[2])
     
-    for email in subscribed_emails:
-        print(email)
+    return subscribed_emails
 
 def write_to_file(content):
     content.pop(0)

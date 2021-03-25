@@ -25,7 +25,8 @@ def display_menu():
                "Sales",
                "Human Resources",
                "Exit program"]
-    option =view.arrow_input("Main menu", options)
+    
+    option =view.arrow_input(f"{view.print_ascii()}\nMain menu", options)
 
     return option
     
